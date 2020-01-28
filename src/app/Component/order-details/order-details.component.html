@@ -1,0 +1,26 @@
+<table class="table">
+    <thead class="thead-light">
+        <tr>
+            <th scope="col">Sr. No.</th>
+            <th scope="col">Item Name</th>
+            <th scope="col">Item type</th>
+            <th scope="col">Item Rate</th>
+            <th scope="col">Price</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of listitem; let i = index">
+            <td>{{i+1}}</td>
+            <td>{{data.itemname}}</td>
+            <td>{{data.itemtype }}</td>
+            <td>{{data.itemrate}}</td>
+            <td>{{data.itemtotal}}</td>
+            <td>
+                <button type="button" class="btn btn-outline-primary" (click)='edit(i,data)'><i class="fa fa-edit" aria-hidden="true"></i></button> &nbsp;
+                <button type="button" class="btn btn-outline-danger" (click)='delete(i)'><i class="fa fa-trash" aria-hidden="true"></i></button>
+            </td>
+        </tr>
+    </tbody>
+    <td><label for="exampleFormControlInput1">Grand Total</label><input type="number" [(ngModel)]=gtotal></td>
+</table> 

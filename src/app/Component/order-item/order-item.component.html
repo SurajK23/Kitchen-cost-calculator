@@ -1,0 +1,107 @@
+<div class="row">
+  <div class="col-md-2">
+    <table class="table  table-dark">
+        <thead>
+          <tr>
+            <th scope="col">Item</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of listItem; let i = index">
+            <td style="width:5%">{{data.name }}&nbsp;</td>
+            <td><i class="fa fa-caret-square-o-down" aria-hidden="true" (click)='sub(i)'></i></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-5" *ngIf='isdisplay'>
+    <!-- <div class="col-md-5" > -->
+      <table class="table table-bordered table-dark">
+          <thead>
+            <tr>
+              <th scope="col">Type</th>
+              <th scope="col">Action</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of typeArray; let i = index">
+              <td>{{data}}</td>
+              <td> <button type="button" class="btn btn-outline-primary" (click)='details(i)'><i class="fa fa-th-large" aria-hidden="true"></i>Details</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- <div class='col-md-5'> -->
+      <div class='col-md-5' *ngIf='isshow'>   
+        <div class="from-group">
+          <form  (ngSubmit)="formdata(data)" #data=ngForm>
+            <tr>
+              <td><label for="exampleFormControlInput1">Name</label>
+                <input type=text [(ngModel)]='name' name="iname" [value]="name" class="form-control" readonly>
+              </td>&nbsp;
+              <td><label for="exampleFormControlInput1">Type</label>
+                <input type=text [(ngModel)]='type' name="type" class="form-control" readonly>
+              </td>&nbsp;
+              <td><label for="exampleFormControlInput1">Rate</label>
+                <input type=text [(ngModel)]='rate' name="rate" class="form-control" readonly>
+              </td>
+            </tr><br>
+            <tr>
+              <td>
+                <label for="exampleFormControlInput1">Unit</label>
+                <input type=text required pattern="^((?!(0))[0-9]{1})$" [class.is-invalid]="units.invalid && units.touched && units.errors" [(ngModel)]='unit' name="unit" #units=ngModel class="form-control" (keyup)="opr()">
+                   <div class="alert alert-danger" *ngIf="units.invalid && units.touched && units.errors">
+                      <div *ngIf="units.errors.pattern">Only 1 digits allowed and not start with zero</div>
+                      <div *ngIf="units.errors.required">Units are required</div>
+                   </div> 
+              </td>&nbsp;
+              <td>
+                  <label for="exampleFormControlInput1">Sub-unit</label>
+                  <input type=text required pattern="^((?!(0))[0-9]{1})$" [class.is-invalid]="subunits.invalid && subunits.touched && subunits.errors" [(ngModel)]='sub_unit' name="subunit" #subunits='ngModel' class="form-control" (keyup)="opr()">
+                  <div class="alert alert-danger" *ngIf="subunits.invalid && subunits.touched && subunits.errors">
+                      <div *ngIf="subunits.errors.pattern">Only 1 digits allowed and not start with zero</div>
+                      <div *ngIf="subunits.errors.required">Units are required</div>
+                   </div>
+                </td>&nbsp;
+              <td><label for="exampleFormControlInput1">Total Price</label>
+                <input type=text [(ngModel)]='total' name="tprice" class="form-control" readonly>
+              </td>
+              <!-- <td><input type=hidden [(ngModel)]='grandtotal' name="grandtotal" class="form-control"></td> -->
+            </tr><br>
+            <button type="submit" class="btn btn-primary" [disabled]="!data.valid" (click)="totale(data)">Add</button>
+          </form>
+      </div>
+      </div> 
+</div>
+<!-- <div class="col-sm-12"> -->
+<div class="col-sm-12" *ngIf="is">
+  <!-- <app-order-details></app-order-details> -->
+  <table class="table">
+    <thead class="thead-light">
+        <tr>
+            <th scope="col">Sr. No.</th>
+            <th scope="col">Item Name</th>
+            <th scope="col">Item type</th>
+            <th scope="col">Item Rate</th>
+            <th scope="col">Price</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of list; index as i">
+            <td>{{i+1}}</td>
+            <td>{{data.itemname}}</td>
+            <td>{{data.itemtype }}</td>
+            <td>{{data.itemrate}}</td>
+            <td>{{data.itemtotal}}</td>
+            <td>
+                <button type="button" class="btn btn-outline-primary" (click)='edit(i,data)'><i class="fa fa-edit" aria-hidden="true"></i></button> &nbsp;
+                <button type="button" class="btn btn-outline-danger" (click)='delete(i)'><i class="fa fa-trash" aria-hidden="true"></i></button>
+            </td>
+        </tr>
+    </tbody>
+    <td><label for="exampleFormControlInput1">Grand Total: </label>
+      <input type="number" value={{grandtotal}}></td>
+</table> 
+</div>

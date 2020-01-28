@@ -1,0 +1,43 @@
+<div class='col-md-10'>
+  <form  (ngSubmit)="update(data)" #data=ngForm>
+    <div class="from-group">
+      <label for="exampleFormControlInput1">Name</label>
+      <input type=text [(ngModel)]='name' name="iname" [value]="name" class="form-control" readonly>
+    </div> 
+    
+    <div class="from-group"> 
+      <label for="exampleFormControlInput1">Type</label>
+      <input type=text [(ngModel)]='type' name="type" [value]="type" class="form-control" readonly>
+    </div>
+
+    <div class="from-group"> 
+      <label for="exampleFormControlInput1">Rate</label>
+      <input type=text [(ngModel)]='rate' name="rate" class="form-control" [value]="rate" readonly>
+    </div>
+
+    <div class="from-group">
+      <label for="exampleFormControlInput1">Unit</label>
+      <input type=text required pattern="^((?!(0))[0-9]{1})$" [class.is-invalid]="units.invalid && units.touched && units.errors" [value]="unit" [(ngModel)]='unit' name="unit" #units=ngModel class="form-control" (keyup)="opr()">
+        <div class="alert alert-danger" *ngIf="units.invalid && units.touched && units.errors">
+          <div *ngIf="units.errors.pattern">Only 1 digits allowed and not start with zero</div>
+          <div *ngIf="units.errors.required">Units are required</div>
+        </div> 
+    </div> 
+
+    <div class="from-group">
+      <label for="exampleFormControlInput1">Sub-unit</label>
+      <input type=text required pattern="^((?!(0))[0-9]{1})$" [class.is-invalid]="subunits.invalid && subunits.touched && subunits.errors" [(ngModel)]='subunit' [value]="subunit" name="subunit" #subunits='ngModel' class="form-control" (keyup)="opr()">
+        <div class="alert alert-danger" *ngIf="subunits.invalid && subunits.touched && subunits.errors">
+          <div *ngIf="subunits.errors.pattern">Only 1 digits allowed and not start with zero</div>
+          <div *ngIf="subunits.errors.required">Units are required</div>
+        </div>
+    </div>
+
+    <div class="from-group">
+      <label for="exampleFormControlInput1">Total Price</label>
+      <input type=text [(ngModel)]='total' name="tprice" [value]="total" class="form-control" readonly>
+    </div><br>
+
+    <button type="submit" class="btn btn-primary" [disabled]="!data.valid">Update</button>
+  </form>
+</div>
